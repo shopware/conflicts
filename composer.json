@@ -4,8 +4,7 @@
     "description": "Shopware 6 conflicting packages",
     "license": "MIT",
     "require": {
-        "shopware/core": "<6.5.0.0",
-        "doctrine/collections": "*"
+        "shopware/core": ">=6.5.0.0"
     },
     "conflict": {
         "symfony/notifier": "v5.3.8",
