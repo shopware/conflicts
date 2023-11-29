@@ -7,6 +7,7 @@
         "shopware/core": ">=6.5.0.0"
     },
     "conflict": {
+        "symfony/var-exporter": "v6.3.9",
         "symfony/notifier": "v5.3.8",
         "symfony/symfony": "*",
         "symfony/cache": "6.2.3 || 5.4.17",
