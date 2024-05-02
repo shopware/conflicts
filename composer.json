@@ -9,7 +9,7 @@
     "conflict": {
         "shopware/core": "<6.5",
         "twig/twig": "~3.9.0",
-        "twig/intl-extra": "3.9.0",
+        "twig/intl-extra": "~3.9.0",
         "squirrelphp/twig-php-syntax": "~1.8",
         "symfony/var-exporter": "v6.3.9 || v6.4.0",
         "symfony/notifier": "v5.3.8",
