@@ -3,6 +3,7 @@
     "type": "metapackage",
     "description": "Shopware 6 conflicting packages",
     "license": "MIT",
+    "version": "0.2.0",
     "require": {
         "shopware/core": ">=6.6.4.0"
     },
