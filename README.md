@@ -12,7 +12,7 @@ Shopware 6 is licensed under the terms of the MIT.
 ## Installation
 
 ```
-composer require shopware/conflicts:dev-6.6.x
+composer require shopware/conflicts:6.6.x-dev
 ```
 
 Make sure, you choose the right branch for the major version you are using.
