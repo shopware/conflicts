@@ -1,9 +1,9 @@
 # Shopware 6 conflicting packages
 
-This is a meta package that adds conflicts for packages that are not compatible
-with Shopware.
+This is a meta package that adds conflicts for packages that are not compatible with Shopware 6.
 
-Shopware 6 is an open source ecommerce platform based on a quite modern technology stack that is powered by Symfony and Vue.js. It's the successor of the very successful ecommerce shopping cart Shopware 5 which has over 800,000 downloads. Shopware 6 is focused on an API-first approach, so it's quite easy to think in different sales channels and make ecommerce happen whereever you want it.
+Shopware 6 is an open headless commerce platform powered by [Symfony 7](https://symfony.com) and [Vue.js 3](https://vuejs.org)
+that is used by thousands of shops and supported by a huge, [worldwide community](https://slack.shopware.com) of developers, agencies and merchants.
 
 ## License
 
@@ -12,8 +12,10 @@ Shopware 6 is licensed under the terms of the MIT.
 ## Installation
 
 ```
-composer require shopware/conflicts:@dev
+composer require shopware/conflicts:dev-6.6.x
 ```
 
-We will make sure that no matter how many branches we will add here, you will
-always get the version matching your packages when you require `@dev`.
+Make sure, you choose the right branch for the major version you are using.
+Currently available branches are:
+- 6.6.x
+- 6.7.x
