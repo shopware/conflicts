@@ -1,16 +1,17 @@
 {
-    "name": "shopware/conflicts",
-    "type": "metapackage",
-    "description": "Shopware 6 conflicting packages",
-    "license": "MIT",
-    "require": {
-        "shopware/core": ">=6.6.10.2"
-    },
-    "conflict": {
-        "phenx/php-font-lib": "<0.5.5",
-        "symfony/symfony": "*",
-        "zircote/swagger-php": "4.8.7",
-        "opensearch-project/opensearch-php": ">2.3.1",
-        "shopware/k8s-meta": "<=1.0.3"
-    }
+  "name": "shopware/conflicts",
+  "type": "metapackage",
+  "description": "Shopware 6 conflicting packages",
+  "license": "MIT",
+  "require": {
+    "shopware/core": ">=6.6.10.2"
+  },
+  "conflict": {
+    "phenx/php-font-lib": "<0.5.5",
+    "symfony/symfony": "*",
+    "zircote/swagger-php": "4.8.7",
+    "opensearch-project/opensearch-php": ">2.3.1",
+    "shopware/k8s-meta": "<=1.0.3",
+    "twig/twig": ">=3.21"
+  }
 }
