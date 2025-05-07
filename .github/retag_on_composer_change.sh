@@ -15,11 +15,10 @@ if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     exit 1
 fi
 
-echo "Starting retagging process..."
+set -e
 
 # Get current branch to switch back to later
 current_branch=$(git rev-parse --abbrev-ref HEAD)
-echo "Current branch: $current_branch"
 
 # Temporary directory for git show output
 temp_dir=$(mktemp -d)
@@ -84,8 +83,10 @@ for local_composer_file in composer.*.json; do
             # Store current HEAD to avoid issues if it's a branch we are on
             original_head_ref=$(git symbolic-ref -q HEAD || git rev-parse HEAD)
 
+            local_composer_content=$(cat "$local_composer_file")
+
             git checkout "$original_commit_hash" --quiet
-            cp "$local_composer_file" "composer.json"
+            echo "$local_composer_content" > "composer.json"
             git add composer.json
             # Preserve original author and committer if possible, otherwise use current user
             # This is a bit complex, ideally you'd want to reuse the original author/committer.
@@ -142,7 +143,6 @@ done
 # Switch back to the original branch
 if [[ "$current_branch" != "HEAD" ]]; then # HEAD indicates detached state
     git checkout "$current_branch" --quiet
-    echo "Switched back to branch '$current_branch'."
 else
     echo "Was in a detached HEAD state. Current HEAD is $(git rev-parse HEAD)."
 fi
