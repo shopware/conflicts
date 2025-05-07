@@ -1,0 +1,36 @@
+name: Nightly Install
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate Matrix
+        id: generate-matrix
+        run: |
+          MATRIX=$(node .github/supported-shopware-version.js)
+          echo "matrix<<EOF" >> $GITHUB_OUTPUT
+          echo "$MATRIX" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+
+  install:
+    runs-on: ubuntu-latest
+    needs: generate-matrix
+    strategy: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+    steps:
+      - name: Setup Shopware
+        uses: shopware/setup-shopware@v2
+        with:
+          env: prod
+          shopware-version: ${{ matrix.version }}
+          php-version: 8.2
+          install: true
