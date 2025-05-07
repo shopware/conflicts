@@ -24,6 +24,7 @@ jobs:
 
     install:
         runs-on: ubuntu-latest
+        needs: generate-matrix
         strategy:
             fail-fast: false
             matrix: ${{ fromJSON(steps.generate-matrix.outputs.matrix) }}
