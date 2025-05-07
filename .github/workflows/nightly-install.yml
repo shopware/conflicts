@@ -30,6 +30,7 @@ jobs:
       - name: Setup Shopware
         uses: shopware/setup-shopware@v2
         with:
-          shopware-version: ${{ matrix.version }}
+          env: prod
+          version: ${{ matrix.version }}
           php-version: 8.2
           install: true
