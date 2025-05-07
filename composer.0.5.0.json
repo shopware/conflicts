@@ -11,7 +11,6 @@
     "symfony/symfony": "*",
     "zircote/swagger-php": "4.8.7",
     "opensearch-project/opensearch-php": ">2.3.1",
-    "shopware/k8s-meta": "<=1.0.3",
-    "twig/twig": ">=3.21"
+    "shopware/k8s-meta": "<=1.0.3"
   }
 }
