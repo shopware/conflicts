@@ -11,9 +11,4 @@ Shopware 6 is licensed under the terms of the MIT.
 
 ## Installation
 
-```
-composer require shopware/conflicts:@dev
-```
-
-We will make sure that no matter how many branches we will add here, you will
-always get the version matching your packages when you require `@dev`.
+The conflicts package is included in every Shopware version. See [USAGES.md](USAGES.md) for which Shopware Version uses which version of the conflicts package.
