@@ -3,7 +3,7 @@ name: Nightly Install
 on:
   schedule:
     - cron: "0 0 * * *"
-  push:
+  workflow_run:
 
 jobs:
   generate-matrix:
