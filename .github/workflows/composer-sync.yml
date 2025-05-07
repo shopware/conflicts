@@ -1,0 +1,26 @@
+name: Update Composer Tags
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - composer.*.json
+
+permissions:
+  contents: write
+
+jobs:
+  update-tags:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Update tags
+        run: bash .github/retag_on_composer_change.sh
+
+      - name: Push updated tags
+        run: bash .github/push_updated_tags.sh
