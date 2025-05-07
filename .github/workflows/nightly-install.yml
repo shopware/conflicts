@@ -28,7 +28,7 @@ jobs:
     strategy: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
     steps:
       - name: Setup Shopware
-        uses: shopware/setup-shopware@v1
+        uses: shopware/setup-shopware@v2
         with:
           shopware-version: ${{ matrix.version }}
           php-version: 8.2
