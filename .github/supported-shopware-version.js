@@ -16,6 +16,6 @@ console.log(JSON.stringify({
         include: versions.map(version => ({
             version
         })),
-        'fail-fast': false
-    }
+    },
+    'fail-fast': false
 }))
