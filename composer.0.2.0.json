@@ -1,0 +1,23 @@
+{
+  "name": "shopware/conflicts",
+  "type": "metapackage",
+  "description": "Shopware 6 conflicting packages",
+  "license": "MIT",
+  "version": "0.2.0",
+  "require": {
+    "shopware/core": ">=6.6.4.0"
+  },
+  "conflict": {
+    "phenx/php-font-lib": "<0.5.5",
+    "twig/twig": ">=3.15.0",
+    "symfony/var-exporter": "v6.3.9 || v6.4.0",
+    "symfony/notifier": "v5.3.8",
+    "symfony/symfony": "*",
+    "symfony/cache": "6.2.3 || 5.4.17",
+    "symfony/framework-bundle": ">= 6.4.19 < 7.0 || >=7.2.4",
+    "symfony/messenger": "6.3.5",
+    "zircote/swagger-php": "4.8.7",
+    "symfony/phpunit-bridge": "6.4.8 || 7.0.8",
+    "opensearch-project/opensearch-php": ">2.3.1"
+  }
+}

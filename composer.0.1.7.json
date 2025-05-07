@@ -1,0 +1,20 @@
+{
+    "name": "shopware/conflicts",
+    "type": "metapackage",
+    "description": "Shopware 6 conflicting packages",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "*"
+    },
+    "conflict": {
+        "shopware/core": "<6.5",
+        "twig/twig": "~3.9.0",
+        "twig/intl-extra": "3.9.0",
+        "symfony/var-exporter": "v6.3.9 || v6.4.0",
+        "symfony/notifier": "v5.3.8",
+        "symfony/symfony": "*",
+        "symfony/cache": "6.2.3 || 5.4.17",
+        "symfony/messenger": "6.3.5",
+        "zircote/swagger-php": "4.8.7"
+    }
+}
