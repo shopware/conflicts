@@ -15,6 +15,7 @@ console.log(JSON.stringify({
     matrix: {
         include: versions.map(version => ({
             version
-        }))
+        })),
+        'fail-fast': false
     }
 }))
