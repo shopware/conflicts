@@ -1,0 +1,33 @@
+name: Update Usage Documentation
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Run documentation generator
+        run: node .github/generate-use-table.js
+      
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code USAGES.md || echo "changes=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add USAGES.md
+          git commit -m "docs: update Shopware/conflicts usage documentation [automated]"
+          git push
