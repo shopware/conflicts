@@ -3,6 +3,9 @@
   "type": "metapackage",
   "description": "Shopware 6 conflicting packages",
   "license": "MIT",
+  "require": {
+    "shopware/core": "~6.6.10.1"
+  },
   "conflict": {
     "phenx/php-font-lib": "<0.5.5",
     "symfony/var-exporter": "v6.3.9 || v6.4.0",
