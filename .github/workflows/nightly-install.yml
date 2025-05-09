@@ -37,7 +37,7 @@ jobs:
 
       - name: Install DemoData
         run: |
-          bin/console store:download SwagPlatformDemoData
+          bin/console store:download -p SwagPlatformDemoData
           bin/console plugin:refresh
           bin/console plugin:install --activate SwagPlatformDemoData
 
