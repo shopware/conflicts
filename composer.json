@@ -4,7 +4,7 @@
     "description": "Shopware 6 conflicting packages",
     "license": "MIT",
     "require": {
-        "shopware/core": "<6.5.0.0",
+        "shopware/core": "<6.5.0.0 <6.6",
         "doctrine/collections": "*"
     },
     "conflict": {
