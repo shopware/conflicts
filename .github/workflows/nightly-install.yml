@@ -34,3 +34,10 @@ jobs:
           shopware-version: ${{ matrix.version }}
           php-version: 8.2
           install: true
+
+      - name: Install DemoData
+        run: |
+          bin/console store:download -p SwagPlatformDemoData
+          bin/console plugin:refresh
+          bin/console plugin:install --activate SwagPlatformDemoData
+
