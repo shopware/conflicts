@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Script to retag if composer.[tagname].json differs from the original composer.json at that tag.
+# Also handles creating tags that don't exist yet.
 
 # Ensure jq is installed
 if ! command -v jq &> /dev/null
@@ -30,6 +31,44 @@ for local_composer_file in composer.*.json; do
         tag_name=$(echo "$local_composer_file" | sed -E 's/composer\.(.*)\.json/\1/')
 
         echo "Processing tag: $tag_name"
+
+        # Check if tag exists
+        if ! git show-ref --tags --quiet --verify -- "refs/tags/$tag_name"; then
+            echo "  Tag '$tag_name' does not exist. Creating it..."
+            
+            # Check if temp branch exists and delete it if it does
+            if git show-ref --verify --quiet refs/heads/temp-tag-$tag_name; then
+                echo "  Temporary branch 'temp-tag-$tag_name' already exists. Removing it first."
+                git branch -D "temp-tag-$tag_name" || {
+                    echo "  Failed to delete temporary branch. Skipping this tag."
+                    continue
+                }
+            fi
+            
+            # Create a temporary branch
+            git checkout -b "temp-tag-$tag_name" HEAD || {
+                echo "  Failed to create temporary branch. Skipping this tag."
+                git checkout "$current_branch"
+                continue
+            }
+
+            # Copy the composer.X.Y.Z.json to composer.json
+            cp "$local_composer_file" composer.json
+            
+            # Commit the change
+            git add composer.json
+            git commit -m "Create tag $tag_name with composer.json"
+            
+            # Create the tag on this commit
+            git tag -a "$tag_name" -m "Create tag $tag_name"
+            
+            # Go back to original branch and clean up
+            git checkout "$current_branch"
+            git branch -D "temp-tag-$tag_name" || echo "  Warning: Failed to delete temporary branch 'temp-tag-$tag_name'"
+            
+            echo "  Tag '$tag_name' created successfully."
+            continue
+        fi
 
         # Get the original composer.json content from the tag
         original_composer_content_file="$temp_dir/composer_original_$tag_name.json"
@@ -146,3 +185,8 @@ if [[ "$current_branch" != "HEAD" ]]; then # HEAD indicates detached state
 else
     echo "Was in a detached HEAD state. Current HEAD is $(git rev-parse HEAD)."
 fi
+
+echo "
+To push the tags to the remote repository, run:
+git push origin --tags
+"
