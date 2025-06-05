@@ -10,10 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Gather Token
+        uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f
+        id: sts
+        with:
+          scope: shopware/conflicts
+          identity: usage
+
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.sts.outputs.token }}
       
       - name: Run documentation generator
         run: node .github/generate-use-table.js
