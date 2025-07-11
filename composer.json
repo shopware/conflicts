@@ -12,6 +12,6 @@
     "zircote/swagger-php": "4.8.7",
     "opensearch-project/opensearch-php": ">2.3.1",
     "shopware/k8s-meta": "<=1.0.3",
-    "doctrine/dbal": "4.3.0"
+    "doctrine/dbal": ">=4.3.0"
   }
 }
