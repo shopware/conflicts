@@ -4,7 +4,7 @@
   "description": "Shopware 6 conflicting packages",
   "license": "MIT",
   "require": {
-    "shopware/core": ">=6.7.1.0"
+    "shopware/core": ">=6.7.2.0"
   },
   "conflict": {
     "phenx/php-font-lib": "<0.5.5",
