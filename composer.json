@@ -16,6 +16,7 @@
         "symfony/symfony": "*",
         "symfony/cache": "6.2.3 || 5.4.17",
         "symfony/messenger": "6.3.5",
+        "symfony/framework-bundle": ">= 6.4.19 < 7.0 || >=7.2.4",
         "zircote/swagger-php": "4.8.7"
     }
 }
