@@ -7,6 +7,8 @@
         "shopware/core": "<6.6"
     },
     "conflict": {
+        "twig/twig": ">=3.9.0",
+        "twig/intl-extra": ">=3.9.0",
         "symfony/notifier": "v5.3.8",
         "symfony/symfony": "*",
         "symfony/cache": "6.2.3 || 5.4.17",
