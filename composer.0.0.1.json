@@ -8,6 +8,7 @@
     },
     "conflict": {
         "symfony/notifier": "v5.3.8",
-        "symfony/symfony": "*"
+        "symfony/symfony": "*",
+        "symfony/framework-bundle": ">= 6.4.19 < 7.0 || >=7.2.4"
     }
 }

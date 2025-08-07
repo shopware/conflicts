@@ -11,6 +11,7 @@
         "symfony/notifier": "v5.3.8",
         "symfony/symfony": "*",
         "symfony/cache": "6.2.3 || 5.4.17",
-        "symfony/messenger": "6.3.5"
+        "symfony/messenger": "6.3.5",
+        "symfony/framework-bundle": ">= 6.4.19 < 7.0 || >=7.2.4",
     }
 }
