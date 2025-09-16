@@ -4,6 +4,7 @@ This document shows which version of `shopware/conflicts` is used by each versio
 
 | Shopware Version | Conflicts Version |
 |-----------------|-------------------|
+| v6.7.2.2 | 0.6.0 |
 | v6.7.2.1 | 0.6.0 |
 | v6.7.2.0 | 0.6.0 |
 | v6.7.1.2 | 0.5.1 |
