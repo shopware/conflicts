@@ -34,6 +34,7 @@ jobs:
           shopware-version: ${{ matrix.version }}
           php-version: 8.2
           install: true
+          allow-insecure-versions: true
 
       - name: Install DemoData
         run: |
