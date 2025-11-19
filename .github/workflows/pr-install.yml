@@ -1,0 +1,124 @@
+name: Pull Request Install
+on:
+  pull_request:
+    paths:
+      - composer.*.json
+  workflow_dispatch:
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Generate Matrix
+        id: generate-matrix
+        run: |
+          MATRIX=$(node .github/supported-shopware-version.js)
+          echo "matrix<<EOF" >> $GITHUB_OUTPUT
+          echo "$MATRIX" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+  install:
+    runs-on: ubuntu-latest
+    needs: generate-matrix
+    strategy: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          path: conflicts
+      - name: Build conflicts
+        working-directory: conflicts
+        run: php bin/generate-local-repository.php
+      - name: Start Webserver
+        working-directory: conflicts/build/local-repository
+        run: php -S localhost:8080 -t . > /dev/null 2>&1 &
+      - name: Setup project
+        run: |
+          touch .env
+          touch .gitignore
+          mkdir -p custom/plugins custom/apps custom/static-plugins
+          COMPOSER=$(cat <<EOF
+          {
+              "name": "shopware/production",
+              "license": "MIT",
+              "type": "project",
+              "require": {
+                  "composer-runtime-api": "^2.0",
+                  "shopware/administration": "${{ matrix.version }}",
+                  "shopware/core": "${{ matrix.version }}",
+                  "shopware/elasticsearch": "${{ matrix.version }}",
+                  "shopware/storefront": "${{ matrix.version }}",
+                  "shopware/dev-tools": "*",
+                  "symfony/flex": "~2"
+              },
+              "repositories": [
+                  {
+                      "type": "composer",
+                      "url": "http://localhost:8080"
+                  },
+                  {
+                      "type": "path",
+                      "url": "custom/plugins/*",
+                      "options": {
+                          "symlink": true
+                      }
+                  },
+                  {
+                      "type": "path",
+                      "url": "custom/plugins/*/packages/*",
+                      "options": {
+                          "symlink": true
+                      }
+                  },
+                  {
+                      "type": "path",
+                      "url": "custom/static-plugins/*",
+                      "options": {
+                          "symlink": true
+                      }
+                  }
+              ],
+              "minimum-stability": "dev",
+              "prefer-stable": true,
+              "config": {
+                  "allow-plugins": {
+                      "symfony/flex": true,
+                      "symfony/runtime": true
+                  },
+                  "optimize-autoloader": true,
+                  "sort-packages": true,
+                  "audit": {
+                      "block-insecure": false
+                  },
+                  "secure-http": false
+              },
+              "scripts": {
+                  "auto-scripts": [
+                  ],
+                  "post-install-cmd": [
+                      "@auto-scripts"
+                  ],
+                  "post-update-cmd": [
+                      "@auto-scripts"
+                  ]
+              },
+              "extra": {
+                  "symfony": {
+                      "allow-contrib": true,
+                      "endpoint": [
+                          "https://raw.githubusercontent.com/shopware/recipes/flex/main/index.json",
+                          "flex://defaults"
+                      ]
+                  }
+              }
+          }
+          EOF)
+          echo "$COMPOSER" > composer.json
+      - name: Install Shopware
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
