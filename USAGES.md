@@ -85,6 +85,7 @@ This document shows which version of `shopware/conflicts` is used by each versio
 | v6.6.0.0-rc3 | * |
 | v6.6.0.0-rc2 | * |
 | v6.6.0.0-rc1 | * |
+| v6.5.8.19 | >= 0.1.30 |
 | v6.5.8.18 | >= 0.1.23 |
 | v6.5.8.17 | >= 0.1.23 |
 | v6.5.8.16 | >= 0.1.7 |
