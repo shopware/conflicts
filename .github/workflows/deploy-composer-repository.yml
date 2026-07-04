@@ -1,0 +1,69 @@
+name: Deploy Composer Repository to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - composer.*.json
+      - bin/generate-local-repository.php
+      - .github/workflows/deploy-composer-repository.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Generate packages.json
+        run: php bin/generate-local-repository.php --output=build/pages
+
+      - name: Generate index.html
+        run: |
+          cat > build/pages/index.html <<'HTML'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <title>shopware/conflicts Composer repository</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>body{font-family:system-ui,sans-serif;max-width:42rem;margin:3rem auto;padding:0 1rem;line-height:1.5}pre{background:#f4f4f4;padding:1rem;overflow-x:auto}</style>
+          </head>
+          <body>
+            <h1>shopware/conflicts</h1>
+            <p>This is a static Composer repository serving the <code>shopware/conflicts</code> metapackage.</p>
+            <p>Add it to your project:</p>
+            <pre>composer config repositories.shopware-conflicts composer https://shopware.github.io/conflicts/
+          composer require shopware/conflicts</pre>
+            <p>Package metadata: <a href="packages.json">packages.json</a> &middot; Source: <a href="https://github.com/shopware/conflicts">github.com/shopware/conflicts</a></p>
+          </body>
+          </html>
+          HTML
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+        with:
+          enablement: true
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: build/pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
