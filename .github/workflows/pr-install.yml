@@ -11,7 +11,7 @@ jobs:
       matrix: ${{ steps.generate-matrix.outputs.matrix }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Generate Matrix
         id: generate-matrix
         run: |
@@ -29,7 +29,7 @@ jobs:
         with:
           php-version: 8.2
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           path: conflicts
       - name: Build conflicts

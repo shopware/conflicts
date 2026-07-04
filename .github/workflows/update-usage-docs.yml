@@ -13,14 +13,14 @@ jobs:
     
     steps:
       - name: Gather Token
-        uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f
+        uses: octo-sts/action@f603d3be9d8dd9871a265776e625a27b00effe05 # v1.1.1
         id: sts
         with:
           scope: shopware/conflicts
           identity: usage
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ steps.sts.outputs.token }}
