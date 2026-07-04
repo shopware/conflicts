@@ -12,6 +12,7 @@
     "symfony/web-profiler-bundle": "<7.3.0",
     "symfony/polyfill-php84": "1.38.0",
     "zircote/swagger-php": "4.8.7",
-    "shopware/k8s-meta": "<=1.0.3"
+    "shopware/k8s-meta": "<=1.0.3",
+    "twig/twig": ">=3.28"
   }
 }
