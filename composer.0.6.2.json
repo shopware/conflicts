@@ -1,0 +1,17 @@
+{
+  "name": "shopware/conflicts",
+  "type": "metapackage",
+  "description": "Shopware 6 conflicting packages",
+  "license": "MIT",
+  "require": {
+    "shopware/core": ">=6.7.12.1"
+  },
+  "conflict": {
+    "phenx/php-font-lib": "<0.5.5",
+    "symfony/symfony": "*",
+    "symfony/web-profiler-bundle": "<7.3.0",
+    "symfony/polyfill-php84": "1.38.0",
+    "zircote/swagger-php": "4.8.7",
+    "shopware/k8s-meta": "<=1.0.3"
+  }
+}
